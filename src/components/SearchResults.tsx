@@ -1,26 +1,35 @@
 import { useContext } from "react"
 import { PlacesContext } from "../context"
+import { LoadingPlaces } from "./LoadingPlaces"
 
 export const SearchResults = () => {
 
-    const {} = useContext(PlacesContext)
+    const { places, isLoadingPlaces } = useContext(PlacesContext)
+
+    if( isLoadingPlaces ) {
+        return <LoadingPlaces />
+    }
 
     return (
         <ul className="list-group mt-3">
-            <li className="list-group-item list-group-item-action">
-                <h6>Lugar</h6>
-                <p 
-                    className="text-muted"
-                    style={{
-                        fontSize: '12px'
-                    }}
-                >
-                    Texto de prueba de los papus
-                </p>
-                <button className="btn btn-outline-primary btn-sm">
-                    Direcciones
-                </button>
-            </li>
+        {
+            places.map(place =>(  
+                <li key={ place.id } className="list-group-item list-group-item-action">
+                    <h6>{ place.text_es }</h6>
+                    <p 
+                        className="text-muted"
+                        style={{
+                            fontSize: '12px'
+                        }}
+                    >
+                        {place.place_name}
+                    </p>
+                    <button className="btn btn-outline-primary btn-sm">
+                        Direcciones
+                    </button>
+                </li>
+            ))
+        }
         </ul>
     )
 
