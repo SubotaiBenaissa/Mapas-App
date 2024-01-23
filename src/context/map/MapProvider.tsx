@@ -115,6 +115,26 @@ export const MapProvider = ({ children }: Props) => {
             }
         }
 
+        if (state.map?.getLayer('RouteString')) {
+            state.map.removeLayer('RouteString')
+            state.map.removeSource('RouteString')
+        }
+
+        state.map?.addSource('RouteString', sourceData)
+        state.map?.addLayer({
+            id: 'RouteString',
+            type: 'line',
+            source: 'RouteString',
+            layout: {
+                'line-cap': 'round',
+                'line-join': 'round'
+            },
+            paint: {
+                'line-color': 'black',
+                'line-width': 3
+            }
+        })
+
     }
 
     return (
